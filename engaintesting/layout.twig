@@ -1,0 +1,248 @@
+		{% if user['auth'] %}
+			<nav class="navbar navbar-default navbar-static-top {% if site['rtl'] %} rtl-navbar {% endif %}">
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" href="{{ page_url('index') }}">
+							{% if site['logo'] %}
+								<img src="{{ site['logo'] }}" alt="{{ site['name'] }}" 										title="{{ site['name'] }}">
+							{% else %}
+								{{ site['name'] }}
+							{% endif %}
+						</a>
+					</div>
+					<div id="navbar" class="collapse navbar-collapse">
+						<ul class="nav navbar-nav navbar-left-block">
+							{% for menu in site['menu'] %}
+								<li {% if menu['active'] %} class="active" {% endif %}>
+									<a href="{{ menu['link'] }}" {% if menu['external'] %} 											target="_blank" {% endif %}>
+										{% if menu['icon'] %}
+											<i class="navbar-icon {{ menu['icon'] }}"></i>
+										{% endif %}
+										{{ menu['name'] }}
+									</a>
+								</li>
+							{% endfor %}
+						</ul>
+						<ul class="nav navbar-nav navbar-right navbar-right-block">
+							{% for menu in site['account_menu'] %}
+								{% if not menu['link'] %}
+									{% if site.currencies %}
+										<li class="dropdown dropdown-currencies">
+											<a class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="badge">{{ user.balance_formatted }}</span>
+                        <span class="caret"></span>
+                      </a>
+											<ul class="dropdown-menu" id="currencies-list">
+												{% for key, rate in site.currencies %}
+													<li>
+														<a href="#" id="currencies-item" data-rate-key="{{ key }}" data-rate-symbol="{{ rate.symbol }}">{{ key }} {{ rate.symbol }}</a>
+													</li>
+												{% endfor %}
+											</ul>
+										</li>
+									{% else %}
+										<li>
+											<a>{{ menu['name'] }}</a>
+										</li>
+									{% endif %}
+								{% else %}
+									<li {% if menu['active'] %} class="active" {% endif %}>
+										<a href="{{ menu['link'] }}" {% if menu['external'] 									%} target="_blank" {% endif %}>{{ menu['name'] }}</a>
+									</li>
+								{% endif %}
+							{% endfor %}
+						</ul>
+					</div>
+				</div>
+			</nav>
+		{% else %}
+			<nav class="nk-header-menu nk-navbar {% if site['rtl'] %} nk-header-menu nk-navbar {% endif %}">
+				<div class="nk-header-wrap">
+					<div class="navbar-header">
+						<button
+                      class="btn btn-outline-light navbar-toggle rounded-1 p-2 h-100"
+                    >
+                      <em class="icon ni ni-menu"></em>
+                    </button>
+						<a class="nk-header-logo" href="{{ page_url('index') }}">
+							{% if site['logo'] %}
+								<img src="{{ site['logo'] }}" alt="{{ site['name'] }}" title="">
+							{% else %}
+								{{ site['name'] }}
+							{% endif %}
+						</a>
+					</div>
+					<div id="navbar" class="nk-header-menu nk-navbar">
+						{% if site['languages']|length > 1 %}
+							<ul class="nk-nav">
+								<li class="nk-nav-item">
+									{% for lang in site['languages'] %}
+										{% if lang['active'] %}
+											<a href="#" class="nk-nav-link" data-											toggle="dropdown" role="button" aria-haspopup="true" 										aria-expanded="false">
+												{{ lang['name'] }}
+												<span class="caret"></span>
+											</a>
+										{% endif %}
+									{% endfor %}
+									<ul class="dropdown-menu dropdown-max-height">
+										{% for lang in site['languages'] %}
+											<li {% if lang['active'] %} class="active" {% endif %}>
+												<a href="{{ lang['url'] }}">{{ lang['name'] }}</a>
+											</li>
+										{% endfor %}
+									</ul>
+								</li>
+							</ul>
+						{% endif %}
+						<ul class="nav navbar-nav navbar-right">
+							{% for menu in site['menu'] %}
+								<li {% if menu['active'] %} class="active" {% endif %}>
+									<a href="{{ menu['link'] }}" {% if menu['external'] %} 										target="_blank" {% endif %}>
+										{% if menu['icon'] %}
+											<i class="navbar-icon {{ menu['icon'] }}"></i>
+										{% endif %}
+										{{ menu['name'] }}
+									</a>
+								</li>
+							{% endfor %}
+						</ul>
+					</div>
+				</div>
+			</nav>
+		{% endif %}
+
+
+        {% for style in site['styles'] %}
+		{% endfor %}
+
+
+
+
+
+
+		{% if user['auth'] %}
+			<nav class="navbar navbar-default navbar-static-top {% if site['rtl'] %} rtl-navbar {% endif %}">
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" href="{{ page_url('index') }}">
+							{% if site['logo'] %}
+								<img src="{{ site['logo'] }}" alt="{{ site['name'] }}" title="{{ site['name'] }}">
+							{% else %}
+								{{ site['name'] }}
+							{% endif %}
+						</a>
+					</div>
+					<div id="navbar" class="collapse navbar-collapse">
+						<ul class="nav navbar-nav navbar-left-block">
+							{% for menu in site['menu'] %}
+								<li {% if menu['active'] %} class="active" {% endif %}>
+									<a href="{{ menu['link'] }}" {% if menu['external'] %} target="_blank" {% endif %}>
+										{% if menu['icon'] %}
+											<i class="navbar-icon {{ menu['icon'] }}"></i>
+										{% endif %}
+										{{ menu['name'] }}
+									</a>
+								</li>
+							{% endfor %}
+						</ul>
+						<ul class="nav navbar-nav navbar-right navbar-right-block">
+							{% for menu in site['account_menu'] %}
+								{% if not menu['link'] %}
+									{% if site.currencies %}
+										<li class="dropdown dropdown-currencies">
+											<a class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+												<span class="badge">{{ user.balance_formatted }}</span>
+												<span class="caret"></span>
+											</a>
+											<ul class="dropdown-menu" id="currencies-list">
+												{% for key, rate in site.currencies %}
+													<li>
+														<a href="#" id="currencies-item" data-rate-key="{{ key }}" data-rate-symbol="{{ rate.symbol }}">{{ key }}
+															{{ rate.symbol }}</a>
+													</li>
+												{% endfor %}
+											</ul>
+										</li>
+									{% else %}
+										<li>
+											<a>{{ menu['name'] }}</a>
+										</li>
+									{% endif %}
+								{% else %}
+									<li {% if menu['active'] %} class="active" {% endif %}>
+										<a href="{{ menu['link'] }}" {% if menu['external'] %} target="_blank" {% endif %}>{{ menu['name'] }}</a>
+									</li>
+								{% endif %}
+							{% endfor %}
+						</ul>
+					</div>
+				</div>
+			</nav>
+		{% else %}
+			<nav class="navbar navbar-default navbar-static-top {% if site['rtl'] %} rtl-navbar {% endif %}">
+				<div class="container">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" href="{{ page_url('index') }}">
+							{% if site['logo'] %}
+								<img src="{{ site['logo'] }}" alt="{{ site['name'] }}" title="">
+							{% else %}
+								{{ site['name'] }}
+							{% endif %}
+						</a>
+					</div>
+					<div id="navbar" class="collapse navbar-collapse">
+						{% if site['languages']|length > 1 %}
+							<ul class="nav navbar-nav navbar-left-block">
+								<li class="dropdown">
+									{% for lang in site['languages'] %}
+										{% if lang['active'] %}
+											<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+												{{ lang['name'] }}
+												<span class="caret"></span>
+											</a>
+										{% endif %}
+									{% endfor %}
+									<ul class="dropdown-menu dropdown-max-height">
+										{% for lang in site['languages'] %}
+											<li {% if lang['active'] %} class="active" {% endif %}>
+												<a href="{{ lang['url'] }}">{{ lang['name'] }}</a>
+											</li>
+										{% endfor %}
+									</ul>
+								</li>
+							</ul>
+						{% endif %}
+						<ul class="nav navbar-nav navbar-right">
+							{% for menu in site['menu'] %}
+								<li {% if menu['active'] %} class="active" {% endif %}>
+									<a href="{{ menu['link'] }}" {% if menu['external'] %} target="_blank" {% endif %}>
+										{% if menu['icon'] %}
+											<i class="navbar-icon {{ menu['icon'] }}"></i>
+										{% endif %}
+										{{ menu['name'] }}
+									</a>
+								</li>
+							{% endfor %}
+						</ul>
+					</div>
+				</div>
+			</nav>
+		{% endif %}

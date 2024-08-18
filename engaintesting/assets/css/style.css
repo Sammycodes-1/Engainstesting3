@@ -38208,7 +38208,7 @@ button.swiper-pagination-bullet {
   padding: 0.8438rem 0px;
   transition: padding 0.2s linear;
   background-color: rgba(0, 0, 0, 0);
-  position: fixed;
+  /* position: fixed; */
 }
 
 .nk-header-main.has-separate {
@@ -52643,7 +52643,7 @@ h6,
   text-align: left;
 }
 .default-btn i {
-  color: #1983ff;
+  color: #e41893;
   background-color: #fff;
   padding: 10px;
   border-radius: 31%;
@@ -52700,24 +52700,25 @@ h6,
   color: #fff;
 }
 .theme-light-active .login-box {
+  display: flex;
+  flex-direction: column;
   background: #ffffffa1;
   border-radius: 20px;
   border: 1px solid #606f8521;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
-.login-box {
+/* .login-box {
   background: #ffffff08;
   border-radius: 20px;
   border: 1px solid #ffffff08;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-}
+} */
 
 .login-box,
 .social-item {
   padding: 45px;
-  display: flex;
   margin-bottom: 50px;
 }
 .home-section-banner,
