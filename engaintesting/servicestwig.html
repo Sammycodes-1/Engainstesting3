@@ -1,0 +1,249 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <ul class="nav nav-pills {% if site['rtl'] %} rtl-nav {% endif %}">
+        <li>
+          <div class="dropdown">
+            <button
+              class="btn btn-primary dropdown-toggle"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <span class="fal fa-filter"></span>
+              <span data-filter-active-category="true"></span>
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+              {% if serviceCategoryList is empty %} {% else %}
+              <li>
+                <a class="dropdown-item" href="#" data-filter-category-id="All"
+                  >{{ lang('services.all') }}</a
+                >
+              </li>
+              {% endif %} {% if user.favorite_services %}
+              <li>
+                <a
+                  class="dropdown-item"
+                  href="#"
+                  data-filter-category-id="favorites"
+                  data-filter-category-name="{{ lang('services.favorite') }}"
+                >
+                  <span class="fas fa-star"></span>
+                  <span>{{ lang('services.favorite') }}</span>
+                </a>
+              </li>
+              {% endif %} {% for category in serviceCategoryList %} {% if
+              category.name %}
+              <li>
+                <a
+                  class="dropdown-item"
+                  href="#"
+                  data-filter-category-id="{{ category.id }}"
+                  data-filter-category-name="{{ category.name }}"
+                >
+                  {% if category['icon'] %} {% set categoryIcon =
+                  category['icon'] %} {% if categoryIcon['icon_type'] == 'icon'
+                  %}
+                  <span class="{{ categoryIcon['icon'] }}"></span>
+                  {% elseif categoryIcon['icon_type'] == 'emoji' %}
+                  <span>{{ categoryIcon['icon'] }}</span>
+                  {% elseif categoryIcon['icon_type'] == 'image' %}
+                  <img
+                    src="{{ categoryIcon['url'] }}"
+                    alt="{{ category['name'] }}"
+                    class="img-responsive btn-group-vertical"
+                    style="
+                      max-width: calc(1em + 6px);
+                      max-height: calc(1em + 6px);
+                    "
+                  />
+                  {% endif %} {% endif %}
+                  <span>{{ category['name'] }}</span>
+                </a>
+              </li>
+              {% endif %} {% endfor %}
+            </ul>
+          </div>
+        </li>
+        {% if site.currencies and not user['auth'] %}
+        <li>
+          <div class="dropdown">
+            <button
+              class="btn btn-primary dropdown-toggle"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <span>
+                {% if user.currency %} {{ user.currency.label }} {% else %} {{
+                site.currency.label }} {% endif %}
+              </span>
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" id="currencies-list">
+              {% for key, rate in site.currencies %}
+              <li>
+                <a
+                  class="dropdown-item"
+                  href="#"
+                  id="currencies-item"
+                  data-rate-key="{{ key }}"
+                  data-rate-symbol="{{ rate.symbol }}"
+                  >{{ key }} {{ rate.symbol }}</a
+                >
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </li>
+        {% endif %}
+        <li class="pull-right search">
+          <div class="input-group">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="{{ lang('general.search.placeholder') }}"
+              data-search-service="#service-table"
+            />
+            <span class="input-group-btn">
+              <button
+                type="button"
+                class="btn btn-default"
+                data-filter-serch-btn="true"
+              >
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </button>
+            </span>
+          </div>
+        </li>
+      </ul>
+      <div class="well well-float">
+        <table
+          class="table {% if site['rtl'] %} rtl-table {% endif %}"
+          id="service-table"
+        >
+          <thead>
+            <tr>
+              {% if user.favorite_services %}
+              <th style="width: 42px"></th>
+              {% endif %}
+              <th>{{ lang('services.id') }}</th>
+              <th class="width-service-name">{{ lang('services.name') }}</th>
+              <th class="nowrap">{{ lang('services.rate') }}</th>
+              <th class="nowrap">{{ lang('services.min') }}</th>
+              <th class="nowrap">{{ lang('services.max') }}</th>
+              {% if site['average_time'] %}
+              <th class="nowrap">
+                {{ lang('services.average_time') }}
+                <span
+                  class="fa fa-exclamation-circle"
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="{{ lang('services.average_time.description') }}"
+                ></span>
+              </th>
+              {% endif %} {% if serviceDescription %}
+              <th class="hidden-xs hidden-sm service-description__th">
+                {{ lang('services.description') }}
+              </th>
+              {% endif %}
+            </tr>
+          </thead>
+          <tbody>
+            {% for category in serviceCategoryList %} {% if category['name'] %}
+            <tr data-filter-table-category-id="{{ category.id }}">
+              <td colspan="100%">
+                {% if category['icon'] %} {% set categoryIcon = category['icon']
+                %} {% if categoryIcon['icon_type'] == 'icon' %}
+                <span class="{{ categoryIcon['icon'] }}"></span>
+                {% elseif categoryIcon['icon_type'] == 'emoji' %}
+                <span>{{ categoryIcon['icon'] }}</span>
+                {% elseif categoryIcon['icon_type'] == 'image' %}
+                <img
+                  src="{{ categoryIcon['url'] }}"
+                  alt="{{ category['name'] }}"
+                  class="img-responsive btn-group-vertical"
+                  style="
+                    max-width: calc(1em + 6px);
+                    max-height: calc(1em + 6px);
+                  "
+                />
+                {% endif %} {% endif %}
+                <strong>{{ category['name'] }}</strong>
+              </td>
+            </tr>
+            {% endif %} {% for service in category['services'] %}
+            <tr data-filter-table-category-id="{{ category.id }}">
+              {% if user.favorite_services %}
+              <td>
+                <span
+                  role="button"
+                  {%
+                  if
+                  service.favorite
+                  %}class="favorite-active"
+                  {%
+                  endif
+                  %}
+                  data-favorite-service-id="{{ service.id }}"
+                >
+                  <span
+                    data-favorite-icon
+                    class="{% if service.favorite %}fas fa-star{% else %}far fa-star{% endif %}"
+                  ></span>
+                </span>
+              </td>
+              {% endif %}
+              <td data-filter-table-service-id="{{ service.id }}">
+                {{ service['id'] }}
+              </td>
+              <td class="service-name" data-filter-table-service-name="true">
+                {{ service['name'] }}
+              </td>
+              <td>
+                {% if converted %}
+                <span
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="{{ service.original_rate }}"
+                  >{{ service.rate }}</span
+                >
+                {% else %} {{ service.rate }} {% endif %}
+              </td>
+              <td>{{ service['min'] }}</td>
+              <td>{{ service['max'] }}</td>
+              {% if site['average_time'] %}
+              <td class="nowrap">{{ service['average_time'] }}</td>
+              {% endif %} {% if serviceDescription %}
+              <td class="hidden-xs hidden-sm service-description">
+                {{ service['description'] }}
+              </td>
+            </tr>
+
+            <tr
+              data-filter-table-category-id="{{ category.id }}"
+              class="visible-xs visible-sm service-description"
+            >
+              <td colspan="100%">{{ service['description'] }}</td>
+            </tr>
+            {% endif %} {% endfor %} {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% if servicesText %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <div class="well {% if site['rtl'] %} rtl-content {% endif %}">
+        {{ servicesText }}
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
