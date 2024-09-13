@@ -421,6 +421,10 @@ body {
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
+
+.header-text{
+  margin-right: 50px;
+}
 @media (min-width: 992px) {
   .theme-light-active
     .nk-timeline-group.has-divider
@@ -3316,7 +3320,7 @@ textarea.form-control-lg {
 }
 
 .form-check-input {
-  --bs-form-check-bg: #0f0f12;
+  --bs-form-check-bg: #d7d7d700;
   width: 1.25rem;
   height: 1.25rem;
   margin-top: 0.075rem;
@@ -31475,7 +31479,7 @@ a:hover .btn-zoom:before {
 }
 
 .accordion-s1 .accordion-button-icon {
-  color: #046bff;
+  color: #fff;
   transition: 0.3s;
   font-size: 1.25rem;
 }
@@ -38208,7 +38212,7 @@ button.swiper-pagination-bullet {
   padding: 0.8438rem 0px;
   transition: padding 0.2s linear;
   background-color: rgba(0, 0, 0, 0);
-  /* position: fixed; */
+  position: fixed;
 }
 
 .nk-header-main.has-separate {
@@ -38224,7 +38228,7 @@ button.swiper-pagination-bullet {
 .nk-header-main.has-fixed {
   padding: 6px 0px;
   box-shadow: none;
-  background: rgb(8 11 58 / 88%);
+  background: #250231;
   border-bottom: 1px solid #2d397a21;
 }
 
@@ -52917,9 +52921,10 @@ html.light .logo-light {
   line-height: 1.14;
   margin-bottom: 16px;
   text-transform: uppercase;
-  background-image: linear-gradient(0.25turn, #f7f5f6, #e41893, #f7f5f6);
+  background-image: linear-gradient(0.25turn, #d7d7d700, #e41893, #d7d7d700);
   border-radius: 50rem;
   width: 100%;
+
 }
 
 .title,
@@ -53203,6 +53208,7 @@ html.light .logo-light {
   border-radius: 20px;
   border: 1px solid #606f8521;
   padding: 40px;
+  color: #111;
   border-radius: 20px;
 }
 .well {
